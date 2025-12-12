@@ -1,6 +1,5 @@
 package org.yearup.controllers;
 
-import ch.qos.logback.core.encoder.EchoEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,25 +10,23 @@ import org.yearup.data.ProductDao;
 import org.yearup.models.Category;
 import org.yearup.models.Product;
 
-import java.lang.module.ResolutionException;
 import java.util.List;
 
 // add the annotations to make this a REST controller
 // add the annotation to make this controller the endpoint for the following url
-    // http://localhost:8080/categories
+// http://localhost:8080/categories
 // add annotation to allow cross site origin requests
 @RestController
 @RequestMapping("categories")
 @CrossOrigin
-public class CategoriesController
-{
+public class CategoriesController {
     private CategoryDao categoryDao;
     private ProductDao productDao;
 
 
     // create an Autowired controller to inject the categoryDao and ProductDao
     @Autowired
-    public CategoriesController(CategoryDao categoryDao, ProductDao productsDao){
+    public CategoriesController(CategoryDao categoryDao, ProductDao productsDao) {
         this.categoryDao = categoryDao;
         this.productDao = productsDao;
     }
@@ -37,13 +34,11 @@ public class CategoriesController
     // add the appropriate annotation for a get action
     @GetMapping("")
     @PreAuthorize("permitAll()")
-    public List<Category> getAll()
-    {
+    public List<Category> getAll() {
         // find and return all categories
         try {
             return categoryDao.getAllCategories();
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong with the system");
         }
     }
@@ -51,17 +46,16 @@ public class CategoriesController
     // add the appropriate annotation for a get action
     @GetMapping("{id}")
     @PreAuthorize("permitAll()")
-    public Category getById(@PathVariable int id)
-    {
+    public Category getById(@PathVariable int id) {
         // get the category by id
-        try{
+        try {
             var category = categoryDao.getById(id);
 
-            if (category == null){
+            if (category == null) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND);
             }
             return category;
-        } catch (Exception ex){
+        } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong internally");
         }
     }
@@ -69,19 +63,12 @@ public class CategoriesController
     // the url to return all products in category 1 would look like this
     // https://localhost:8080/categories/1/products
     @GetMapping("{categoryId}/products")
-    public List<Product> getProductsById(@PathVariable int categoryId)
-    {
+    public List<Product> getProductsById(@PathVariable int categoryId) {
         // get a list of product by categoryId
-        try
-        {
+        try {
             return productDao.listByCategoryId(categoryId);
-        }
-        catch (Exception ex)
-        {
-            throw new ResponseStatusException(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    "Something went wrong internally"
-            );
+        } catch (Exception ex) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong internally");
         }
     }
 
@@ -89,15 +76,11 @@ public class CategoriesController
     // add annotation to ensure that only an ADMIN can call this function
     @PostMapping("")
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Category addCategory(@RequestBody Category category)
-    {
+    public Category addCategory(@RequestBody Category category) {
         // insert the category
-        try
-        {
+        try {
             return categoryDao.create(category);
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
         }
     }
@@ -106,15 +89,11 @@ public class CategoriesController
     // add annotation to ensure that only an ADMIN can call this function
     @PutMapping("{id}")
     // @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void updateCategory(@PathVariable int id, @RequestBody Category category)
-    {
+    public void updateCategory(@PathVariable int id, @RequestBody Category category) {
         // update the category by id
-        try
-        {
+        try {
             categoryDao.update(id, category);
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
         }
     }
@@ -124,20 +103,15 @@ public class CategoriesController
     // add annotation to ensure that only an ADMIN can call this function
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void deleteCategory(@PathVariable int id)
-    {
+    public void deleteCategory(@PathVariable int id) {
         // delete the category by id
-        try
-        {
+        try {
             var product = categoryDao.getById(id);
 
-            if(product == null)
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            if (product == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
             categoryDao.delete(id);
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
         }
     }
