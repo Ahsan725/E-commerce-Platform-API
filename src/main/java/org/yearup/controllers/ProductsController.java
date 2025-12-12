@@ -81,7 +81,7 @@ public class ProductsController
     {
         try
         {
-            productDao.create(product);
+            productDao.update(id, product); //this was the biug I think it had .create() insyead pf update
         }
         catch(Exception ex)
         {
