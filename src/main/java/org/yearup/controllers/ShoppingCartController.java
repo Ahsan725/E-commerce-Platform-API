@@ -1,16 +1,14 @@
 package org.yearup.controllers;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.yearup.data.ShoppingCartDao;
 import org.yearup.data.UserDao;
-
-
 import org.yearup.models.ShoppingCart;
 import org.yearup.models.ShoppingCartItem;
 import org.yearup.models.User;
 
-// principal gives me info about the currently logged-in user
 import java.security.Principal;
 
 // convert this class to a REST controller
@@ -87,10 +85,7 @@ public class ShoppingCartController {
     // body contains a ShoppingCartItem
     // only quantity is allowed to change
     @PutMapping("/products/{productId}")
-    public void updateProductInCart(
-            @PathVariable int productId,
-            @RequestBody ShoppingCartItem item,
-            Principal principal) {
+    public void updateProductInCart(@PathVariable int productId, @RequestBody ShoppingCartItem item, Principal principal) {
 
         // get the logged-in user
         User user = userDao.getByUserName(principal.getName());
