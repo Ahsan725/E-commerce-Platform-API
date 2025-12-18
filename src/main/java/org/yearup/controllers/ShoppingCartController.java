@@ -87,7 +87,7 @@ public class ShoppingCartController {
     @PutMapping("/products/{productId}")
     public void updateProductInCart(@PathVariable int productId, @RequestBody ShoppingCartItem item, Principal principal) {
 
-        // get the logged-in user
+        // get the logged in user
         User user = userDao.getByUserName(principal.getName());
 
         // get user id
@@ -97,11 +97,10 @@ public class ShoppingCartController {
         if (shoppingCartDao.exists(userId, productId)) {
 
             // update quantity to whatever the client sent
-            // this does NOT increment, it overwrites
+            // this does NOT increment it basically updates it to whatever is sent
             shoppingCartDao.updateQuantity(userId, productId, item.getQuantity());
         }
-        // if product doesn’t exist, we silently do nothing
-        // could also throw a 404 but assignment doesn’t require it
+
     }
 
     // add a DELETE method to clear all products from the current users cart
@@ -112,7 +111,7 @@ public class ShoppingCartController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void clearCart(Principal principal) {
 
-        // get the logged-in user
+        // get the logged in user
         User user = userDao.getByUserName(principal.getName());
 
         // remove all cart items for this user
