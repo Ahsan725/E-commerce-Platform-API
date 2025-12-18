@@ -8,10 +8,10 @@ import org.yearup.models.*;
 
 import java.security.Principal;
 import java.util.Collection;
-import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
+@CrossOrigin
 public class OrdersController
 {
     private final OrderDao orderDao;
@@ -44,10 +44,10 @@ public class OrdersController
             throw new RuntimeException("User not authenticated");
         }
 
-        // Get logged-in user
+        // Get the logged in user
         int userId = userDao.getIdByUsername(principal.getName());
 
-        // Get shopping cart (correct way)
+        // get shopping cart
         ShoppingCart cart = shoppingCartDao.getByUserId(userId);
         Collection<ShoppingCartItem> cartItems = cart.getItems().values();
 
@@ -62,7 +62,7 @@ public class OrdersController
         // Create order
         Order order = orderDao.create(new Order(userId));
 
-        // Convert cart items → order line items
+        // this basically converts cart items into order line items
         for (ShoppingCartItem cartItem : cartItems)
         {
             if (cartItem.getQuantity() <= 0) {
