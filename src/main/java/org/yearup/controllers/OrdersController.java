@@ -85,7 +85,7 @@ public class OrdersController
         }
 
 
-        // Clear cart
+        // clear the cart
         shoppingCartDao.clearCart(userId);
     }
 
