@@ -16,6 +16,7 @@ import java.security.Principal;
 // only logged in users should have access to these actions
 @RestController
 @RequestMapping("/cart")
+@CrossOrigin
 public class ShoppingCartController
 {
     // a shopping cart requires
@@ -23,7 +24,6 @@ public class ShoppingCartController
     private UserDao userDao;
     private ProductDao productDao;
 
-    // constructor injection (added)
     public ShoppingCartController(
             ShoppingCartDao shoppingCartDao,
             UserDao userDao,
@@ -96,7 +96,7 @@ public class ShoppingCartController
         User user = userDao.getByUserName(principal.getName());
         int userId = user.getId();
 
-        // update quantity only if product exists in cart
+        // updates quantity only if product exists in cart
         if (shoppingCartDao.exists(userId, productId))
         {
             shoppingCartDao.updateQuantity(
