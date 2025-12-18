@@ -17,15 +17,15 @@ public class MySqlOrderDao extends MySqlDaoBase implements OrderDao {
     @Override
     public Order create(Order order) {
         String sql = """
-                INSERT INTO orders (user_id, order_date, status)
-                VALUES (?, ?, ?)
-                """;
+        INSERT INTO orders (user_id)
+        VALUES (?)
+        """;
 
-        try (Connection connection = getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        try (Connection connection = getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
             statement.setInt(1, order.getUserId());
-            statement.setTimestamp(2, Timestamp.valueOf(order.getOrderDate()));
-            statement.setString(3, order.getStatus());
 
             statement.executeUpdate();
 
@@ -39,4 +39,6 @@ public class MySqlOrderDao extends MySqlDaoBase implements OrderDao {
             throw new RuntimeException(e);
         }
     }
+
+
 }
