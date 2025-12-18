@@ -17,18 +17,13 @@ import java.security.Principal;
 @RestController
 @RequestMapping("/cart")
 @CrossOrigin
-public class ShoppingCartController
-{
+public class ShoppingCartController {
     // a shopping cart requires
     private ShoppingCartDao shoppingCartDao;
     private UserDao userDao;
     private ProductDao productDao;
 
-    public ShoppingCartController(
-            ShoppingCartDao shoppingCartDao,
-            UserDao userDao,
-            ProductDao productDao)
-    {
+    public ShoppingCartController(ShoppingCartDao shoppingCartDao, UserDao userDao, ProductDao productDao) {
         this.shoppingCartDao = shoppingCartDao;
         this.userDao = userDao;
         this.productDao = productDao;
@@ -36,10 +31,8 @@ public class ShoppingCartController
 
     // each method in this controller requires a Principal object as a parameter
     @GetMapping
-    public ShoppingCart getCart(Principal principal)
-    {
-        try
-        {
+    public ShoppingCart getCart(Principal principal) {
+        try {
             // get the currently logged in username
             String userName = principal.getName();
             // find database user by userId
@@ -48,13 +41,8 @@ public class ShoppingCartController
 
             // use the shoppingcartDao to get all items in the cart and return the cart
             return shoppingCartDao.getByUserId(userId);
-        }
-        catch(Exception e)
-        {
-            throw new ResponseStatusException(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    "Oops... our bad."
-            );
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
         }
     }
 
@@ -62,22 +50,16 @@ public class ShoppingCartController
     // https://localhost:8080/cart/products/15 (15 is the productId to be added
     @PostMapping("/products/{productId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addProductToCart(
-            @PathVariable int productId,
-            Principal principal)
-    {
+    public void addProductToCart(@PathVariable int productId, Principal principal) {
         // get the logged-in user
         User user = userDao.getByUserName(principal.getName());
         int userId = user.getId();
 
         // if product already exists in cart, increase quantity
-        if (shoppingCartDao.exists(userId, productId))
-        {
+        if (shoppingCartDao.exists(userId, productId)) {
             int currentQty = shoppingCartDao.getQuantity(userId, productId);
             shoppingCartDao.updateQuantity(userId, productId, currentQty + 1);
-        }
-        else
-        {
+        } else {
             // otherwise add product with quantity 1
             shoppingCartDao.addProduct(userId, productId);
         }
@@ -87,23 +69,14 @@ public class ShoppingCartController
     // https://localhost:8080/cart/products/15 (15 is the productId to be updated)
     // the BODY should be a ShoppingCartItem - quantity is the only value that will be updated
     @PutMapping("/products/{productId}")
-    public void updateProductInCart(
-            @PathVariable int productId,
-            @RequestBody ShoppingCartItem item,
-            Principal principal)
-    {
+    public void updateProductInCart(@PathVariable int productId, @RequestBody ShoppingCartItem item, Principal principal) {
         // get the logged-in user
         User user = userDao.getByUserName(principal.getName());
         int userId = user.getId();
 
         // updates quantity only if product exists in cart
-        if (shoppingCartDao.exists(userId, productId))
-        {
-            shoppingCartDao.updateQuantity(
-                    userId,
-                    productId,
-                    item.getQuantity()
-            );
+        if (shoppingCartDao.exists(userId, productId)) {
+            shoppingCartDao.updateQuantity(userId, productId, item.getQuantity());
         }
     }
 
@@ -111,8 +84,7 @@ public class ShoppingCartController
     // https://localhost:8080/cart
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void clearCart(Principal principal)
-    {
+    public void clearCart(Principal principal) {
         // get the logged-in user
         User user = userDao.getByUserName(principal.getName());
 
