@@ -243,21 +243,6 @@ Your frontend is expected to live elsewhere, but any client can work. Typical se
 
 ---
 
-## UI Flow & Interaction
-
-```mermaid
-graph TD
-    A[Public User] -->|Browses| B(Products & Categories)
-    A -->|Registers/Logs in| C{Authenticated User}
-    C -->|Adds to Cart| D(Shopping Cart)
-    D -->|Initiates| E(Checkout)
-    E -->|Stores| F(Order History)
-    F -->|Viewable in| G(User Profile)
-    
-    H[Admin User] -->|Manages| B
-    H -->|Manages| I(User Accounts)
-```
-
 ---
 
 ## Future Enhancements (v2.0)
