@@ -1,4 +1,4 @@
-# 🛒 Fetsy E-Commerce Platform
+# Fetsy E-Commerce Platform
 
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.7.3-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![Java](https://img.shields.io/badge/Java-17-orange.svg)](https://www.oracle.com/java/)
@@ -8,16 +8,15 @@
 
 ---
 
-##  Introduction
+## Introduction
 
-**EasyShop** is a robust, full-stack e-commerce solution designed to provide a seamless shopping experience for users and a powerful management interface for administrators. Built with a modern **Spring Boot** backend, it leverages **JWT-based security** and a **MySQL** database to ensure data integrity, scalability, and security.
-
+**Fetsy** is a robust, full-stack e-commerce solution designed to provide a seamless shopping experience for users and a powerful management interface for administrators. Built with a modern **Spring Boot** backend, it leverages **JWT-based security** and a **MySQL** database to ensure data integrity, scalability, and security.
 
 > This project follows the DAO (Data Access Object) pattern, ensuring a clean separation between business logic and data persistence.
 
 ---
 
-##  Key Features
+## Key Features
 
 - **Secure Authentication**: Multi-role authentication (User/Admin) using JWT tokens.
 - **Category Management**: Browse products by categories or manage them as an admin.
@@ -32,10 +31,9 @@
 
 Frontend flow:
 
-## 🎥 Project Demo
+### Project Demo
 
-https://raw.githubusercontent.com/Ahsan725/E-commerce-Platform-API/main/demo.mp4
-
+[View Project Demo](https://raw.githubusercontent.com/Ahsan725/E-commerce-Platform-API/main/demo.mp4)
 
 <div align="center">
   <h3>[Feature Name]</h3>
@@ -44,7 +42,7 @@ https://raw.githubusercontent.com/Ahsan725/E-commerce-Platform-API/main/demo.mp4
 
 ---
 
-##  Highlights
+## Highlights
 
 - **Modern Architecture**: Cleanly separated layers (Controllers, DAOs, Models, Security).
 - **RESTful API**: Standardized endpoints for seamless frontend integration.
@@ -53,7 +51,7 @@ https://raw.githubusercontent.com/Ahsan725/E-commerce-Platform-API/main/demo.mp4
 
 ---
 
-##  Project Structure
+## Project Structure
 
 ```text
 src
@@ -81,7 +79,7 @@ src
 
 ---
 
-##  Getting Started
+## Getting Started
 
 ### 1. Prerequisites
 - **Java 17** or higher
@@ -108,18 +106,74 @@ The API will be available at `http://localhost:8080`.
 
 ---
 
-##  Frontend Integration
+## API Endpoints
 
-To connect your frontend application:
-1. Ensure the backend is running.
-2. Set your base API URL to `http://localhost:8080`.
-3. Handle JWT tokens by storing them in `localStorage` or `sessionStorage` after a successful login.
-4. Include the token in the `Authorization` header for protected routes:  
-   `Authorization: Bearer <your_token>`
+### Products
+
+`GET /products`
+
+**Optional query params:**
+- `cat` (categoryId)
+- `minPrice`
+- `maxPrice`
+- `subCategory`
+
+**Example:**
+```bash
+curl "http://localhost:8080/products?cat=1&minPrice=10&maxPrice=200"
+```
+
+### Shopping Cart (logged-in users)
+
+This controller is routed under `/cart` and uses `Principal`, meaning it depends on the authenticated user context.
+
+- `GET /cart`: Returns the current user’s cart.
+- `POST /cart/products/{productId}`: Adds product to cart. If it already exists, increments quantity.
+- `PUT /cart/products/{productId}`: Updates quantity using a `ShoppingCartItem` body.
+
+### Orders (checkout)
+
+- `POST /orders`: Creates a new order from the current user’s cart, creates order line items, then clears the cart.
+
+### Profile
+
+Profile endpoints are implemented via `ProfileController` + MySQL profile DAO.
 
 ---
 
-##  UI Flow & Interaction
+## Architecture Flow
+
+```text
+Client (Frontend / Postman)
+-> Controller (REST endpoints, auth via Principal)
+-> DAO interface (behavior contract)
+-> MySql* DAO implementation (SQL queries)
+-> MySQL database
+<- Model objects (serialized to JSON)
+<- JSON response
+```
+
+---
+
+## Frontend Integration
+
+### Running a frontend (important)
+
+This repository is an API backend (Java-only repo layout: `src/`, `pom.xml`, no `package.json`).
+Your frontend is expected to live elsewhere, but any client can work. Typical setup:
+
+1. Start the backend on `http://localhost:8080`
+2. In your frontend, set the API base URL to that host
+3. Call endpoints like:
+   - `GET /products?...`
+   - `GET /cart`
+   - `POST /cart/products/{productId}`
+   - `PUT /cart/products/{productId}`
+   - `POST /orders`
+
+---
+
+## UI Flow & Interaction
 
 ```mermaid
 graph TD
@@ -136,7 +190,7 @@ graph TD
 
 ---
 
-##  Future Enhancements (v2.0)
+## Future Enhancements (v2.0)
 
 - [ ] **Payment Integration**: Stripe or PayPal integration for real payments.
 - [ ] **Search Optimization**: Implementation of Elasticsearch for faster product discovery.
@@ -146,7 +200,7 @@ graph TD
 
 ---
 
-##  License
+## License
 
 This project is licensed under the **MIT License**.
 
