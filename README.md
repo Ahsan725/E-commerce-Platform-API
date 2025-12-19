@@ -46,6 +46,11 @@
   <img src="/home.png" alt="Description of Screenshot" width="800">
 </div>
 
+<div align="center">
+  <h3>Shopping Cart</h3>
+  <img src="/cart.png" alt="Description of Screenshot" width="800">
+</div>
+
 ---
 
 ## Highlights
