@@ -111,7 +111,7 @@ datasource.password=YOUR_PASSWORD
 
 ### 4. Running the Backend
 ```bash
-./mvnw spring-boot:run
+run EasyshopApplication.java
 ```
 The API will be available at `http://localhost:8080`.
 
@@ -133,7 +133,66 @@ The API will be available at `http://localhost:8080`.
 ```bash
 curl "http://localhost:8080/products?cat=1&minPrice=10&maxPrice=200"
 ```
-
+Sample Response:
+```bash
+[
+	{
+		"productId": 25,
+		"name": "Men's Suit",
+		"price": 199.99,
+		"categoryId": 2,
+		"description": "Look sharp and elegant with this tailored suit.",
+		"subCategory": "Dark Blue",
+		"stock": 10,
+		"imageUrl": "mens-suit.jpg",
+		"featured": false
+	},
+	{
+		"productId": 32,
+		"name": "Men's Watch",
+		"price": 149.99,
+		"categoryId": 2,
+		"description": "A sophisticated and elegant watch to complete your look.",
+		"subCategory": "Black",
+		"stock": 20,
+		"imageUrl": "mens-watch.jpg",
+		"featured": true
+	},
+	{
+		"productId": 36,
+		"name": "Men's Winter Coat",
+		"price": 149.99,
+		"categoryId": 2,
+		"description": "Stay warm and fashionable during the winter season with this coat.",
+		"subCategory": "Red",
+		"stock": 10,
+		"imageUrl": "mens-winter-coat.jpg",
+		"featured": false
+	},
+	{
+		"productId": 55,
+		"name": "Women's Winter Coat",
+		"price": 149.99,
+		"categoryId": 2,
+		"description": "Stay warm and fashionable during the winter season with this coat.",
+		"subCategory": "Pink",
+		"stock": 10,
+		"imageUrl": "womens-winter-coat.jpg",
+		"featured": false
+	},
+	{
+		"productId": 57,
+		"name": "Women's Formal Gown",
+		"price": 199.99,
+		"categoryId": 2,
+		"description": "A stunning and glamorous gown for formal events.",
+		"subCategory": "Burgundy",
+		"stock": 30,
+		"imageUrl": "womens-gown.jpg",
+		"featured": true
+	}
+]
+```
 ### Shopping Cart (logged-in users)
 
 This controller is routed under `/cart` and uses `Principal`, meaning it depends on the authenticated user context.
