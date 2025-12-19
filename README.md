@@ -32,6 +32,10 @@
 
 Frontend flow:
 
+## 🎥 Project Demo
+
+https://raw.githubusercontent.com/Ahsan725/E-commerce-Platform-API/main/demo.mp4
+
 
 <div align="center">
   <h3>[Feature Name]</h3>
