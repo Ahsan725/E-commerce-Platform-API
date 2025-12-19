@@ -68,12 +68,11 @@ public class MySqlProfileDao extends MySqlDaoBase implements ProfileDao {
             throw new RuntimeException(e);
         }
 
-        // If somehow no profile exists (shouldn't happen, but just in case)
+        // If somehow no profile exists
         return null;
     }
 
     // added this so users can update their profile info
-    // this is what PUT /profile calls
     @Override
     public void update(Profile profile) {
         String sql = """
