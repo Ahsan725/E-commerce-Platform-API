@@ -36,6 +36,16 @@
   <img src="/demo.gif" alt="Description of Screenshot" width="800">
 </div>
 
+<div align="center">
+  <h3>Checkout Confirmation</h3>
+  <img src="/confirmation.png" alt="Description of Screenshot" width="800">
+</div>
+
+<div align="center">
+  <h3>Home Screen</h3>
+  <img src="/home.png" alt="Description of Screenshot" width="800">
+</div>
+
 ---
 
 ## Highlights
