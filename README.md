@@ -29,15 +29,11 @@
 
 ## Visuals & Screenshots
 
-Frontend flow:
-
 ### Project Demo
 
-[View Project Demo](https://raw.githubusercontent.com/Ahsan725/E-commerce-Platform-API/main/demo.mp4)
-
 <div align="center">
-  <h3>[Feature Name]</h3>
-  <img src="path/to/your/image.png" alt="Description of Screenshot" width="800">
+  <h3>Frontend Demo</h3>
+  <img src="/demo.gif" alt="Description of Screenshot" width="800">
 </div>
 
 ---
