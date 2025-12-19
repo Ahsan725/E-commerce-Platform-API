@@ -247,11 +247,10 @@ Your frontend is expected to live elsewhere, but any client can work. Typical se
 
 ## Future Enhancements (v2.0)
 
-- [ ] **Payment Integration**: Stripe or PayPal integration for real payments.
-- [ ] **Search Optimization**: Implementation of Elasticsearch for faster product discovery.
+- [ ] **Search**: Implementation of a search feature on top of the existing filters.
 - [ ] **Admin Dashboard**: A dedicated UI for managing sales and inventory analytics.
 - [ ] **Email Notifications**: Automated order confirmation and delivery updates.
-- [ ] **Mobile App**: Cross-platform mobile version using React Native.
+- [ ] **Dark Mode?**: Super important
 
 ---
 
